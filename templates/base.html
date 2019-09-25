@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Team();</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Dumps Map</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/dumps">Свалки</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/events">События</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/admin">Панель управления</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" onclick="dump_sidebar()">Оставить объявление</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" onclick="event_sidebar()">Создать событие</a>
+      </li>
+        <li class="nav-item">
+        <a href="#" class="nav-link">Авторизация</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% block content %}
+{% endblock %}
+{#<footer class="footer mt-auto py-3" style="background-color: #343A40">#}
+{#  <div class="container">#}
+{#    <p class="text-white text-center m-0">New Team();</p>#}
+{#  </div>#}
+{#</footer>#}
+</body>
+<script src="{% static "js/2gis.js" %}"></script>
+<script src="{% static "js/script.js" %}"></script>
+{% block data %}
+{% endblock %}
+</html>

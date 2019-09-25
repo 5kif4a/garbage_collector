@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+<h3 class="text-center p-3">События</h3>
+{% for event in events %}
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="card-body">
+                        <h4 class="card-title">Событие</h4>
+                        <p class="card-text">Организатор: {{ event.name }}</p>
+                        <p class="card-text">{{ event.description }}</p>
+                        <p class="card-text">Место: {{ event.street }}</p>
+{#                        <p class="card-text">Контактные данные:</p>#}
+{#                        <p class="card-text">Номер телефона: {{ event.org_phone }}</p>#}
+{#                        <p class="card-text">Адрес электронной почты: {{ event.org_email }}</p>#}
+                        <a href="events/{{ event.id }}" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Рейтинг: {{ event.rating }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+{#<h3 class="text-center p-3">Создание события</h3>#}
+{#<form class="p-2" method="post">#}
+{#    {% csrf_token %}#}
+{#    <div class="form-row">#}
+{#        <div class="form-group col-sm">#}
+{#            {{ form.name|as_crispy_field }}#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="form-row">#}
+{#        <div class="form-group col">#}
+{#            {{ form.street|as_crispy_field }}#}
+{#        </div>#}
+{#        <div class="form-group col">#}
+{#            {{ form.org_email|as_crispy_field }}#}
+{#        </div>#}
+{#        <div class="form-group col">#}
+{#            {{ form.org_phone|as_crispy_field }}#}
+{#        </div>#}
+{#    </div>#}
+{#    {{ form.description|as_crispy_field }}#}
+{#    <button type="submit" class="btn btn-outline-primary">Отправить заявку</button>#}
+{#</form>#}

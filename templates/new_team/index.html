@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container-responsive">
+<div id="dump" class="sidebar">
+<form class="p-2 text-white" method="post" enctype="multipart/form-data">
+    <h5 class="text-center">Форма объявления</h5>
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-sm">
+            {{ dump_form.name|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm">
+            {{ dump_form.lat|as_crispy_field }}
+        </div>
+        <div class="form-group col-sm">
+            {{ dump_form.long|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm">
+            {{ dump_form.email|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row col-sm">
+        <div class="form-group col-sm">
+            {{ dump_form.street|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row col-sm">
+        <div class="form-group col-sm">
+            {{ dump_form.photo|as_crispy_field }}
+        </div>
+    </div>
+    {{ dump_form.description|as_crispy_field }}
+    <button type="submit" class="btn btn-outline-primary">Отправить</button>
+</form>
+</div>
+<div id="event" class="sidebar">
+<form class="p-2 text-white" method="post">
+    <h5 class="text-center">Создание события</h5>
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-sm">
+            {{ event_form.name|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm">
+            {{ event_form.lat|as_crispy_field }}
+        </div>
+        <div class="form-group col-sm">
+            {{ event_form.long|as_crispy_field }}
+        </div>
+    </div>
+     <div class="form-row">
+        <div class="form-group col-sm">
+            {{ dump_form.street|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm">
+            {{ event_form.org_email|as_crispy_field }}
+        </div>
+    </div>
+    <div class="form-row col-sm">
+        <div class="form-group col-sm">
+            {{ event_form.org_phone|as_crispy_field }}
+        </div>
+    </div>
+    {{ event_form.description|as_crispy_field }}
+    <button type="submit" class="btn btn-outline-primary">Отправить</button>
+</form>
+</div>
+<div id="map" class="map w-100"></div>
+</div>
+{% endblock %}
+{% block data %}
+    <script>
+var dumps = {{ dumps_json|safe }};
+var events = {{ events_json|safe }};
+DG.then(function() {
+                var map = DG.map('map', {
+                    center: [49.8333300, 73.1658000],
+                    zoom: 11,
+                    zoomControl: false
+                    }
+                );
+                    var dumpIcon = DG.icon({
+                    iconUrl: '{% static 'dump.png' %}',
+                    iconSize: [38, 95],
+                    iconAnchor: [22, 94],
+                    popupAnchor: [-3, -76],
+                    shadowSize: [68, 95],
+                    shadowAnchor: [22, 94],
+                    shadowUrl: '{% static 'dump_shadow.png' %}',
+                });
+
+                DG.control.zoom({position: 'topright'}).addTo(map);
+                DG.control.location({position: 'topright'}).addTo(map);
+                DG.control.scale().addTo(map);
+
+                map.on('click', function(e) {
+                    console.log(e.latlng.lat, e.latlng.lng);
+                    set_coords(e.latlng.lat, e.latlng.lng);
+                });
+                if (dumps.length > 0){for(let i=0; i<dumps.length; i++){
+                    DG.marker([dumps[i].lat, dumps[i].long], {icon: dumpIcon}).addTo(map).bindPopup(
+                        `
+                        <div class="card text-center text-dark">
+                          <img class="card-img-top" src=${dumps[i].photo_url}>
+                          <div class="card-body">
+                            <h5 class="card-title">Свалка</h5>
+                            <h6 class="card-title">Статус: ${dumps[i].status}</h6>
+                            <p class="card-text">${dumps[i].description}</p>
+                            <a href=dumps/${dumps[i].id}>Подробнее</a>
+                          </div>
+                        </div>
+                        `
+                    );}
+                }
+                if (events.length > 0){
+                    for(let i=0; i<events.length; i++){
+                    DG.marker([events[i].lat, events[i].long]).addTo(map).bindPopup(
+                        `
+                        <div class="card text-center text-dark">
+                          <div class="card-body">
+                            <h5 class="card-title">Событие</h5>
+                            <p class="card-text">${events[i].name}</p>
+                            <p class="card-text">Контактный телефон: ${events[i].org_phone}</p>
+                            <p class="card-text">Адрес электронной почты: ${events[i].org_email}</p>
+                            <p class="card-text">Рейтинг: ${events[i].rating}</p>
+                            <a href=events/${events[i].id}>Подробнее</a>
+                          </div>
+                        </div>
+                        `
+                    );}
+                }
+});
+
+function set_coords(lat, lng){
+  document.getElementById('e_long').value = lng;
+  document.getElementById('e_lat').value = lat;
+  document.getElementById('d_long').value = lng;
+  document.getElementById('d_lat').value = lat;
+};
+    </script>
+{% endblock %}

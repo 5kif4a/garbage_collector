@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+<h3 class="text-center p-3">Свалки</h3>
+{% for dump in dumps %}
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <a href="dumps/{{ dump.id }}"><img class="img-thumbnail" src="{{ dump.photo.url }}"></a>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Описание: {{ dump.description }}</p>
+                        <p class="card-text">Улица: {{ dump.street }}</p>
+                        <a href="dumps/{{ dump.id }}" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Дата отправки объявления: {{ dump.sending_time }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
