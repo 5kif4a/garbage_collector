@@ -15,6 +15,8 @@ class DumpForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(DumpForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = 'ФИО (полностью)'
+        self.fields['phone'].label = 'Контактный номер телефона'
+        self.fields['email'].label = "Адрес электронной почты"
         self.fields['long'].label = 'Широта'
         self.fields['lat'].label = 'Долгота'
         self.fields['street'].label = 'Улица'
@@ -22,6 +24,7 @@ class DumpForm(ModelForm):
         self.fields['photo'].label = 'Фотографий'
         self.fields['status'].required = False
         self.fields['rating'].required = False
+
 
 class EventForm(ModelForm):
     class Meta:

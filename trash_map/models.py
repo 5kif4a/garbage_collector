@@ -8,6 +8,7 @@ statuses = [("Принято на рассмотрение", "Принято н�
 class Dump(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20, blank=True, default='+71234567890', null=True)
     email = models.EmailField()
     long = models.FloatField(default=0, blank=True)  # долгота
     lat = models.FloatField(default=0, blank=True)  # широта

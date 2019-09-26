@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-
 {% block content %}
 <div class="container-responsive">
 <div id="dump" class="sidebar">
@@ -22,6 +21,9 @@
         </div>
     </div>
     <div class="form-row">
+        <div class="form-group col-sm">
+            {{ dump_form.phone|as_crispy_field }}
+        </div>
         <div class="form-group col-sm">
             {{ dump_form.email|as_crispy_field }}
         </div>
@@ -76,6 +78,26 @@
     <button type="submit" class="btn btn-outline-primary">Отправить</button>
 </form>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div id="map" class="map w-100"></div>
 </div>
 {% endblock %}
@@ -117,7 +139,8 @@ DG.then(function() {
                             <h5 class="card-title">Свалка</h5>
                             <h6 class="card-title">Статус: ${dumps[i].status}</h6>
                             <p class="card-text">${dumps[i].description}</p>
-                            <a href=dumps/${dumps[i].id}>Подробнее</a>
+                            <a href=dumps/${dumps[i].id} class="card-link">Подробнее</a>
+                            <a href="#" class="btn btn-primary text-white">Поделиться в социальных сетях</a>
                           </div>
                         </div>
                         `
@@ -134,7 +157,8 @@ DG.then(function() {
                             <p class="card-text">Контактный телефон: ${events[i].org_phone}</p>
                             <p class="card-text">Адрес электронной почты: ${events[i].org_email}</p>
                             <p class="card-text">Рейтинг: ${events[i].rating}</p>
-                            <a href=events/${events[i].id}>Подробнее</a>
+                            <a href=events/${events[i].id} class="card-link">Подробнее</a>
+                            <a href="#" class="btn btn-primary text-white">Поделиться в социальных сетях</a>
                           </div>
                         </div>
                         `

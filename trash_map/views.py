@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from trash_map.models import Dump, Event
 from trash_map.forms import DumpForm, EventForm
 from django.core.files.storage import FileSystemStorage
@@ -46,7 +46,7 @@ def index(request):
         'events_json': events_json
     }
     if request.method == 'POST':
-        print(request.POST)
+        # print(request.POST)
         is_event = True if request.POST.get('org_email', False) else False
         if is_event:
             form = EventForm(request.POST)
@@ -60,7 +60,7 @@ def index(request):
             if form.is_valid():
                 fs.save(file.name, file)
                 form.save()
-        return render(request, 'new_team/index.html', context)
+        return redirect('/', context)
     else:
         return render(request, 'new_team/index.html', context)
 
