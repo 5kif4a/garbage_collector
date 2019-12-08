@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container-responsive">
-<div id="dump" class="sidebar d-none d-sm-block">
+<div id="dump" class="sidebar">
 <form class="p-2 text-white" method="post" enctype="multipart/form-data">
     <h5 class="text-center">Форма объявления</h5>
     {% csrf_token %}
@@ -42,7 +42,7 @@
     <button type="submit" class="btn btn-primary btn-block">Отправить</button>
 </form>
 </div>
-<div id="event" class="sidebar d-none d-sm-block">
+<div id="event" class="sidebar">
 <form class="p-2 text-white" method="post">
     <h5 class="text-center">Создание события</h5>
     {% csrf_token %}
