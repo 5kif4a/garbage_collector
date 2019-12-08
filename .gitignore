@@ -1,0 +1,10 @@
+db.sqlite3
+db.config
+*.png
+*.jpg
+trash_map/migrations/
+venv/
+.idea/
+*.pyc
+media/
+

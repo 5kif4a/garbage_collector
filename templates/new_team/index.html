@@ -12,7 +12,7 @@
             {{ dump_form.name|as_crispy_field }}
         </div>
     </div>
-    <div class="form-row">
+    <div class="form-row d-none">
         <div class="form-group col-sm">
             {{ dump_form.lat|as_crispy_field }}
         </div>
@@ -28,18 +28,18 @@
             {{ dump_form.email|as_crispy_field }}
         </div>
     </div>
-    <div class="form-row col-sm">
+    <div class="form-row">
         <div class="form-group col-sm">
             {{ dump_form.street|as_crispy_field }}
         </div>
     </div>
-    <div class="form-row col-sm">
+    <div class="form-row">
         <div class="form-group col-sm">
             {{ dump_form.photo|as_crispy_field }}
         </div>
     </div>
     {{ dump_form.description|as_crispy_field }}
-    <button type="submit" class="btn btn-outline-primary">Отправить</button>
+    <button type="submit" class="btn btn-primary btn-block">Отправить</button>
 </form>
 </div>
 <div id="event" class="sidebar">
@@ -51,7 +51,7 @@
             {{ event_form.name|as_crispy_field }}
         </div>
     </div>
-    <div class="form-row">
+    <div class="form-row d-none">
         <div class="form-group col-sm">
             {{ event_form.lat|as_crispy_field }}
         </div>
@@ -65,17 +65,17 @@
         </div>
     </div>
     <div class="form-row">
-        <div class="form-group col-sm">
+        <div class="form-group">
             {{ event_form.org_email|as_crispy_field }}
         </div>
     </div>
-    <div class="form-row col-sm">
+    <div class="form-row">
         <div class="form-group col-sm">
             {{ event_form.org_phone|as_crispy_field }}
         </div>
     </div>
     {{ event_form.description|as_crispy_field }}
-    <button type="submit" class="btn btn-outline-primary">Отправить</button>
+    <button type="submit" class="btn btn-primary btn-block">Отправить</button>
 </form>
 </div>
 <!-- Modal -->
@@ -112,15 +112,48 @@ DG.then(function() {
                     zoomControl: false
                     }
                 );
-                    var dumpIcon = DG.icon({
-                    iconUrl: '{% static 'dump.png' %}',
-                    iconSize: [38, 95],
-                    iconAnchor: [22, 94],
-                    popupAnchor: [-3, -76],
-                    shadowSize: [68, 95],
-                    shadowAnchor: [22, 94],
-                    shadowUrl: '{% static 'dump_shadow.png' %}',
-                });
+                const dumpColour = '#FF0000'
+                const eventColour = '#00FF00'
+
+                const dumpMarkerHtmlStyles = `
+                  background-color: ${dumpColour};
+                  width: 2rem;
+                  height: 2rem;
+                  display: block;
+                  left: -1.5rem;
+                  top: -1.5rem;
+                  position: relative;
+                  border-radius: 3rem 3rem 0;
+                  transform: rotate(45deg);
+                  border: 1px solid #FFFFFF`
+
+                const dumpIcon = DG.divIcon({
+                  className: "my-custom-pin",
+                  iconAnchor: [0, 24],
+                  labelAnchor: [-6, 0],
+                  popupAnchor: [0, -36],
+                  html: `<span style="${dumpMarkerHtmlStyles}" />`
+                })
+
+                const eventMarkerHtmlStyles = `
+                  background-color: ${eventColour};
+                  width: 2rem;
+                  height: 2rem;
+                  display: block;
+                  left: -1.5rem;
+                  top: -1.5rem;
+                  position: relative;
+                  border-radius: 3rem 3rem 0;
+                  transform: rotate(45deg);
+                  border: 1px solid #FFFFFF`
+
+                const eventIcon = DG.divIcon({
+                  className: "my-custom-pin",
+                  iconAnchor: [0, 24],
+                  labelAnchor: [-6, 0],
+                  popupAnchor: [0, -36],
+                  html: `<span style="${eventMarkerHtmlStyles}" />`
+                })
 
                 DG.control.zoom({position: 'topright'}).addTo(map);
                 DG.control.location({position: 'topright'}).addTo(map);
@@ -148,7 +181,7 @@ DG.then(function() {
                 }
                 if (events.length > 0){
                     for(let i=0; i<events.length; i++){
-                    DG.marker([events[i].lat, events[i].long]).addTo(map).bindPopup(
+                    DG.marker([events[i].lat, events[i].long], {icon: eventIcon}).addTo(map).bindPopup(
                         `
                         <div class="card text-center text-dark">
                           <div class="card-body">

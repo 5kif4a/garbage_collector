@@ -3,8 +3,10 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-<h3 class="text-center p-3">Свалка</h3>
-    <p>Координаты: {{ dump.long }}, {{ dump.lat }}</p>
+<h3 class="text-center py-2">Свалка</h3>
+    <div class="row">
+        <div class="col-xs col-sm">
+            <p>Координаты: {{ dump.long }}, {{ dump.lat }}</p>
     <p>Улица: {{ dump.street }}</p>
     <p>Описание: {{ dump.description }}</p>
     <div class="container text-center">
@@ -55,5 +57,7 @@
 </a>
 
     <p>Чтобы проголосовать или как-то повлиять на улучшение ситуации, требуется <a href="#">авторизация.</a></p>
+        </div>
+    </div>
 </div>
 {% endblock %}

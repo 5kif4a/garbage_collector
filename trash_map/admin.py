@@ -1,10 +1,8 @@
 from django.contrib import admin
 from .models import Dump, Event
-from django.contrib.auth.models import Group
 
 # Register your models here.
-admin.site.site_header = 'Dumps tracking system'
-admin.site.unregister(Group)
+admin.site.site_header = 'Garbage collector'
 
 
 def get_model_fields(model):

@@ -19,6 +19,10 @@ class Dump(models.Model):
     status = models.CharField(default="Принято на рассмотрение", choices=statuses, max_length=50)
     rating = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = 'Свалка'
+        verbose_name_plural = 'Свалки'
+
 
 class Event(models.Model):
     id = models.AutoField(primary_key=True)
@@ -30,3 +34,7 @@ class Event(models.Model):
     org_phone = models.CharField(max_length=20)
     description = models.TextField()
     rating = models.IntegerField(default=0, blank=True)
+
+    class Meta:
+        verbose_name = 'Событие'
+        verbose_name_plural = 'События'
